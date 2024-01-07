@@ -1,17 +1,19 @@
 import zio._
 
 object Init extends ZIOAppDefault{
-  case class  Cake(deco: Option[String], base: Option[String])
+  type Deco = Option[String]
+  type Base = Option[String]
+  case class  Cake(deco: Deco, base: Base)
   override def run =
     for {
-      _ <- zio.Console.printLine("start")
-      cake = Cake(Some("strawberry"), Some("plain"))
-      deco = cake.deco.filter(x => x.contains("strawberry")).map(y => y.concat("_\uD83C\uDF53"))
-      _ <- zio.Console.printLine(deco)
+      _ <- zio.Console.printLine("_start")
 
-      a = cake.base.map(x => x.->("a"))
+      deco = Some("strawberry")
+      base = Some("plain")
+      cake = Cake(deco, base)
 
-      _ <- zio.Console.printLine(a)
+      kirby = cake.deco.map(x => x.concat("\uD83C\uDF53"))
+      _ <- zio.Console.printLine(kirby)
 
     }
     yield()
