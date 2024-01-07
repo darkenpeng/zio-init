@@ -30,7 +30,7 @@ object Init extends ZIOAppDefault{
 
       changedDeco = cake.deco match {
         // 만약 데코가 준비되어 있으면 딸기 이모지로 바꿔준다
-        case Some(d) => d.replace("strawberry", "\uD83C\uDF53")
+        case Some(d) => kirby.changeStatus(cake)
         // 데코가 준비되어 있지 않으면 커비가 실망한다
         case None => kirby.changeStatus(cake)
       }
