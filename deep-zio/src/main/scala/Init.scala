@@ -5,12 +5,12 @@ object Universe extends App {
   case class Kirby(status: String) {
     def changeStatus(cake: Cake) = cake.deco match {
       case Some(d) => Kirby.apply("Happy")
-      case None => Kirby.apply("disappointed")// this.status.replace(this.status, "Disappointed")
+      case None => Kirby.apply("Disappointed")// this.status.replace(this.status, "Disappointed")
     }
   }
   val kirby = Kirby("Happy")
-  val d = kirby.changeStatus(cake = Cake(None, None))
-  println(d, kirby) // 행복한
+  val disappointedKirby = kirby.changeStatus(cake = Cake(None, None))
+  println(disappointedKirby, kirby) // 실망한 커비와 원래의 행복한 커비 (Kirby(Disappointed),Kirby(Happy))
 
 }
 
