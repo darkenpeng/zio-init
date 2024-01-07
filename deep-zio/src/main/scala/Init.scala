@@ -18,25 +18,24 @@ object Init extends ZIOAppDefault{
     for {
       _ <- zio.Console.printLine("_start")
 
-      kirby = Universe.Kirby("Happy")
+      kirby = Universe.Kirby("-")
 
       deco = Some("strawberry")
       base = Some("plain")
 
       // ~커비가 딸기를 케이크 위에 올린다~
 
-      // 하지만 아무도 케이크 데코와 베이스를 준비하지 않았다...(빈 케이크)
-      cake = Cake(Some("strawberry"), None)
+      cake = Cake(deco, None)
 
-      changedDeco = cake.deco match {
-        // 만약 데코가 준비되어 있으면 딸기 이모지로 바꿔준다
-        case Some(d) => kirby.changeStatus(cake)
+      changedKirby = cake.deco match {
+        // 만약 준비된 데코가 딸기 데코면 커비가 행복해한다
+        case Some(d) if d.equals("strawberry") => kirby.changeStatus(cake)
         // 데코가 준비되어 있지 않으면 커비가 실망한다
         case None => kirby.changeStatus(cake)
       }
 
-      _ <- zio.Console.printLine(kirby) // 행복한 커비는 그대로 있음
-      _ <- zio.Console.printLine(changedDeco) // 데코가 준비되어 있어서 커비가 실망하지 않고 딸기 이모지로 바뀜
+      _ <- zio.Console.printLine(kirby)
+      _ <- zio.Console.printLine(changedKirby)
 
     }
     yield()
