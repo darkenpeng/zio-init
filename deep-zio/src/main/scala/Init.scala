@@ -8,10 +8,6 @@ object Universe extends App {
       case None => Kirby.apply("Disappointed")// this.status.replace(this.status, "Disappointed")
     }
   }
-  val kirby = Kirby("Happy")
-  val disappointedKirby = kirby.changeStatus(cake = Cake(None, None))
-  println(disappointedKirby, kirby) // 실망한 커비와 원래의 행복한 커비 (Kirby(Disappointed),Kirby(Happy))
-
 }
 
 object Init extends ZIOAppDefault{
@@ -22,6 +18,7 @@ object Init extends ZIOAppDefault{
     for {
       _ <- zio.Console.printLine("_start")
 
+      kirby = Universe.Kirby("Happy")
       deco = Some("strawberry")
       base = Some("plain")
 
@@ -34,7 +31,7 @@ object Init extends ZIOAppDefault{
         // 만약 데코가 준비되어 있으면 딸기 이모지로 바꿔준다
         case Some(d) => d.replace("strawberry", "\uD83C\uDF53")
         // 데코가 준비되어 있지 않으면 커비가 실망한다
-        case None => Universe.kirby.changeStatus(cake)// Field defined in DelayedInit is likely to be null
+        case None => kirby.changeStatus(cake)// Field defined in DelayedInit is likely to be null -> Init 실행할 때 Universe 안의 커비가 인스턴스화 되지 않으면 커비는 null임
       }
 
       _ <- zio.Console.printLine(a)
